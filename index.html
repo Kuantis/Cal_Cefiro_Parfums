@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/yizuzz/Desktop/Cal-Cefiro.html -->
-<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Perfumes Personalizable - CEFIRO Parfums</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="./Calculadora CEFIRO Parfums_files/bootstrap.min.css" rel="stylesheet">
-    <!-- Iconos especializados -->
-    <link href="./Calculadora CEFIRO Parfums_files/all.min.css" rel="stylesheet">
-    <!-- Iconos adicionales de Feather para mejor estética -->
-    <link href="./Calculadora CEFIRO Parfums_files/feather.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="./Calculadora CEFIRO Parfums_files/css2" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -23,30 +21,37 @@
             --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--gradient-bg);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            margin: 0;
+            padding: 0;
         }
 
         .main-content {
             flex: 1;
-            padding: 2rem 0;
+            padding: 1rem 0;
         }
 
         .brand-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: white;
+            padding: 0 1rem;
         }
 
         .logo-container {
             background: white;
             border-radius: 20px;
-            width: 140px;
-            height: 140px;
+            width: clamp(80px, 15vw, 140px);
+            height: clamp(80px, 15vw, 140px);
             margin: 0 auto 1rem;
             display: flex;
             align-items: center;
@@ -64,14 +69,14 @@
 
         .brand-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .brand-subtitle {
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             opacity: 0.9;
             font-weight: 300;
         }
@@ -82,34 +87,41 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             border: 1px solid rgba(255,255,255,0.2);
+            margin: 0 1rem;
         }
 
         .card-header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border-radius: 20px 20px 0 0 !important;
-            padding: 1.5rem;
+            padding: 1rem 1.5rem;
         }
 
         .card-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             margin: 0;
             text-align: center;
+        }
+
+        .card-body {
+            padding: 1.5rem !important;
         }
 
         .form-label {
             font-weight: 600;
             color: var(--primary-color);
             margin-bottom: 0.5rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
         }
 
         .form-control, .form-select {
             border-radius: 10px;
             border: 2px solid #e9ecef;
             padding: 0.75rem 1rem;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .form-control:focus, .form-select:focus {
@@ -117,18 +129,31 @@
             box-shadow: 0 0 0 0.2rem rgba(142, 68, 173, 0.25);
         }
 
+        .input-group {
+            display: flex;
+            width: 100%;
+        }
+
+        .input-group .form-control {
+            flex: 1;
+            border-radius: 10px 0 0 10px;
+        }
+
         .input-group-text {
             background: var(--secondary-color);
             color: white;
             border: 2px solid var(--secondary-color);
             border-radius: 0 10px 10px 0;
+            border-left: none;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            padding: 0.75rem 1rem;
         }
 
         .results-card {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             border-radius: 15px;
             border: 1px solid #dee2e6;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
         .results-header {
@@ -138,15 +163,18 @@
             border-radius: 15px 15px 0 0;
             text-align: center;
             font-weight: 600;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
         }
 
         .result-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 1.5rem;
+            padding: 0.75rem 1rem;
             border-bottom: 1px solid #dee2e6;
             transition: background-color 0.3s ease;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .result-item:hover {
@@ -163,17 +191,21 @@
         .result-label {
             color: var(--primary-color);
             font-weight: 500;
+            font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            flex: 1;
+            min-width: 120px;
         }
 
         .result-value {
             font-weight: 600;
             color: var(--success-color);
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            text-align: right;
         }
 
         .error-message {
             color: var(--accent-color);
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
             margin-top: 0.5rem;
             font-weight: 500;
         }
@@ -184,6 +216,12 @@
             padding: 1rem 0;
             text-align: center;
             margin-top: auto;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            padding: 0 1rem;
         }
 
         .footer a {
@@ -200,38 +238,158 @@
         .icon-prefix {
             color: var(--secondary-color);
             margin-right: 0.5rem;
+            font-size: clamp(0.8rem, 2vw, 1rem);
         }
 
-        @media (max-width: 768px) {
-            .brand-title {
-                font-size: 2rem;
+        /* Responsive breakpoints */
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 0.5rem 0;
+            }
+            
+            .brand-header {
+                margin-bottom: 1rem;
+            }
+
+            .calculator-card {
+                margin: 0 0.5rem;
+                border-radius: 15px;
+            }
+
+            .card-header {
+                border-radius: 15px 15px 0 0 !important;
+                padding: 0.75rem 1rem;
+            }
+
+            .card-body {
+                padding: 1rem !important;
+            }
+
+            .result-item {
+                padding: 0.5rem 0.75rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .result-label {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .result-value {
+                text-align: left;
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            .results-header {
+                padding: 0.75rem;
+            }
+
+            .mb-4 {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
+        @media (min-width: 577px) and (max-width: 768px) {
+            .calculator-card {
+                margin: 0 1rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 992px) {
+            .calculator-card {
+                margin: 0 2rem;
+            }
+        }
+
+        /* Extra large screens */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+
+        /* Landscape mobile orientation */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .main-content {
+                padding: 0.5rem 0;
+            }
+            
+            .brand-header {
+                margin-bottom: 0.5rem;
             }
             
             .logo-container {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .logo-svg {
                 width: 60px;
                 height: 60px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .brand-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.25rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+            
+            .calculator-card {
+                background: white !important;
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+            }
+            
+            .footer {
+                display: none;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .form-control, .form-select {
+                border-width: 3px;
+            }
+            
+            .calculator-card {
+                border-width: 2px;
+                border-color: #000;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
             }
         }
     </style>
 </head>
 <body>
     <div class="main-content">
-        <div class="container">
+        <div class="container-fluid">
             <!-- Header con Logo y Marca -->
             <div class="brand-header">
-               
+                <div class="logo-container">
+                    <!-- Placeholder for logo -->
+                </div>
                 <h1 class="brand-title">CEFIRO</h1>
                 <p class="brand-subtitle">Parfums</p>
             </div>
 
             <!-- Calculadora Principal -->
             <div class="row justify-content-center">
-                <div class="col-lg-8 col-xl-6">
+                <div class="col-12 col-sm-11 col-md-10 col-lg-8 col-xl-6 col-xxl-5">
                     <div class="card calculator-card">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -239,7 +397,7 @@
                                 Calculadora
                             </h2>
                         </div>
-                        <div class="card-body p-4">
+                        <div class="card-body">
                             <form>
                                 <!-- Tipo de Perfume -->
                                 <div class="mb-4">
@@ -248,8 +406,11 @@
                                         Tipo de Perfume
                                     </label>
                                     <select id="perfumeType" class="form-select">
-                                        <!-- Opciones se llenarán dinámicamente -->
-                                    <option value="Extrait de Parfum">Extrait de Parfum</option><option value="Eau de Parfum">Eau de Parfum</option><option value="Eau de Toilette">Eau de Toilette</option><option value="Splash">Splash</option></select>
+                                        <option value="Extrait de Parfum">Extrait de Parfum</option>
+                                        <option value="Eau de Parfum">Eau de Parfum</option>
+                                        <option value="Eau de Toilette">Eau de Toilette</option>
+                                        <option value="Splash">Splash</option>
+                                    </select>
                                 </div>
 
                                 <!-- Volumen -->
@@ -299,7 +460,7 @@
                                             <i class="fas fa-tint me-2"></i>
                                             Alcohol (aprox.)
                                         </span>
-                                        <span class="result-value" id="alcoholResult" style="color: rgb(39, 174, 96);">17.70 ml</span>
+                                        <span class="result-value" id="alcoholResult">17.70 ml</span>
                                     </div>
                                 </div>
                             </div>
@@ -312,8 +473,8 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p class="mb-0">
+        <div class="container-fluid">
+            <p>
                 <i class="fas fa-code me-2"></i>
                 Desarrollado por <a href="https://kuatis.dev/" target="_blank">kuatis.dev</a> © 2025
             </p>
@@ -321,7 +482,7 @@
     </footer>
 
     <!-- Bootstrap JS -->
-    <script src="./Calculadora CEFIRO Parfums_files/bootstrap.bundle.min.js.descarga"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Datos de referencia
@@ -343,16 +504,6 @@
         const pheromonesResult = document.getElementById('pheromonesResult');
         const alcoholResult = document.getElementById('alcoholResult');
         const errorMessage = document.getElementById('errorMessage');
-
-        // Función para poblar el select de Tipo de Perfume
-        function populatePerfumeTypes() {
-            for (const type in perfumeData) {
-                const option = document.createElement('option');
-                option.value = type;
-                option.textContent = type;
-                perfumeTypeSelect.appendChild(option);
-            }
-        }
 
         // Función para calcular y mostrar las cantidades
         function calculateQuantities() {
@@ -420,9 +571,46 @@
 
         // Inicializar la calculadora al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
-            populatePerfumeTypes();
             calculateQuantities();
+        });
+
+        // Mejorar la experiencia táctil en dispositivos móviles
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+
+        // Optimización para teclado virtual en móviles
+        let initialViewportHeight = window.innerHeight;
+        
+        window.addEventListener('resize', () => {
+            // Detectar si el teclado virtual está abierto
+            if (window.innerHeight < initialViewportHeight * 0.75) {
+                document.body.classList.add('keyboard-open');
+            } else {
+                document.body.classList.remove('keyboard-open');
+            }
         });
     </script>
 
-</body></html>
+    <style>
+        /* Estilos adicionales para dispositivos táctiles */
+        .touch-device .form-control,
+        .touch-device .form-select {
+            min-height: 44px; /* Mínimo recomendado para elementos táctiles */
+        }
+
+        .touch-device .input-group-text {
+            min-height: 44px;
+        }
+
+        /* Ajustes cuando el teclado virtual está abierto */
+        .keyboard-open .main-content {
+            padding-bottom: 0;
+        }
+
+        .keyboard-open .footer {
+            display: none;
+        }
+    </style>
+</body>
+</html>
