@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Perfumes Personalizable - CEFIRO Parfums</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Iconos especializados -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Iconos adicionales de Feather para mejor estética -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #8e44ad;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --light-bg: #f8f9fa;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .logo-container {
+            background: white;
+            border-radius: 20px;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 15px;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .brand-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 20px 20px 0 0 !important;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin: 0;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(142, 68, 173, 0.25);
+        }
+
+        .input-group-text {
+            background: var(--secondary-color);
+            color: white;
+            border: 2px solid var(--secondary-color);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .results-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            border: 1px solid #dee2e6;
+            margin-top: 2rem;
+        }
+
+        .results-header {
+            background: var(--success-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+            transition: background-color 0.3s ease;
+        }
+
+        .result-item:hover {
+            background-color: rgba(142, 68, 173, 0.05);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            border-top: 2px dashed var(--success-color);
+            font-weight: 600;
+            background-color: rgba(39, 174, 96, 0.1);
+        }
+
+        .result-label {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-weight: 600;
+            color: var(--success-color);
+            font-size: 1.1rem;
+        }
+
+        .error-message {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #764ba2;
+        }
+
+        .icon-prefix {
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 2rem;
+            }
+            
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .logo-svg {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <!-- Header con Logo y Marca -->
+            <div class="brand-header">
+               
+                <h1 class="brand-title">CEFIRO</h1>
+                <p class="brand-subtitle">Parfums</p>
+            </div>
+
+            <!-- Calculadora Principal -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="card calculator-card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="fas fa-prescription-bottle icon-prefix"></i>
+                                Calculadora
+                            </h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <form>
+                                <!-- Tipo de Perfume -->
+                                <div class="mb-4">
+                                    <label for="perfumeType" class="form-label">
+                                        <i class="fas fa-wine-bottle icon-prefix"></i>
+                                        Tipo de Perfume
+                                    </label>
+                                    <select id="perfumeType" class="form-select">
+                                        <!-- Opciones se llenarán dinámicamente -->
+                                    </select>
+                                </div>
+
+                                <!-- Volumen -->
+                                <div class="mb-4">
+                                    <label for="volume" class="form-label">
+                                        <i class="fas fa-flask icon-prefix"></i>
+                                        Volumen a Preparar
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="number" id="volume" class="form-control" value="30" min="10" step="10" placeholder="Ingrese el volumen">
+                                        <span class="input-group-text">ml</span>
+                                    </div>
+                                    <div class="error-message" id="errorMessage"></div>
+                                </div>
+                            </form>
+
+                            <!-- Resultados -->
+                            <div class="results-card">
+                                <div class="results-header">
+                                    <i class="fas fa-balance-scale me-2"></i>
+                                    Cantidades Necesarias
+                                </div>
+                                <div class="results-body">
+                                    <div class="result-item">
+                                        <span class="result-label">
+                                            <i class="fas fa-vial me-2"></i>
+                                            Esencia a Agregar
+                                        </span>
+                                        <span class="result-value" id="essenceResult">0.00 ml</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">
+                                            <i class="fas fa-link me-2"></i>
+                                            Fijador
+                                        </span>
+                                        <span class="result-value" id="fixativeResult">0 gotas</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">
+                                            <i class="fas fa-magic me-2"></i>
+                                            Feromonas
+                                        </span>
+                                        <span class="result-value" id="pheromonesResult">0 gotas</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">
+                                            <i class="fas fa-tint me-2"></i>
+                                            Alcohol (aprox.)
+                                        </span>
+                                        <span class="result-value" id="alcoholResult">0.00 ml</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-code me-2"></i>
+                Desarrollado por <a href="https://kuatis.dev" target="_blank">kuatis.dev</a> © 2025
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Datos de referencia
+        const perfumeData = {
+            "Extrait de Parfum": { concentration: 0.40 }, // 40%
+            "Eau de Parfum": { concentration: 0.20 },    // 20%
+            "Eau de Toilette": { concentration: 0.15 },   // 15%
+            "Splash": { concentration: 0.04 }             // 4%
+        };
+
+        // Constante para el volumen aproximado de una gota
+        const DROP_VOLUME_ML = 0.05; // 1 gota = 0.05 ml
+
+        // Obtener referencias a los elementos HTML
+        const perfumeTypeSelect = document.getElementById('perfumeType');
+        const volumeInput = document.getElementById('volume');
+        const essenceResult = document.getElementById('essenceResult');
+        const fixativeResult = document.getElementById('fixativeResult');
+        const pheromonesResult = document.getElementById('pheromonesResult');
+        const alcoholResult = document.getElementById('alcoholResult');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Función para poblar el select de Tipo de Perfume
+        function populatePerfumeTypes() {
+            for (const type in perfumeData) {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                perfumeTypeSelect.appendChild(option);
+            }
+        }
+
+        // Función para calcular y mostrar las cantidades
+        function calculateQuantities() {
+            const selectedType = perfumeTypeSelect.value;
+            let selectedVolume = parseFloat(volumeInput.value);
+
+            // Validaciones básicas del volumen
+            if (isNaN(selectedVolume) || selectedVolume < 10) {
+                errorMessage.textContent = 'Por favor, introduce un volumen válido (mínimo 10 ml, incrementos de 10 ml).';
+                errorMessage.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>' + errorMessage.textContent;
+                // Limpiar resultados si el input es inválido
+                essenceResult.textContent = '0.00 ml';
+                fixativeResult.textContent = '0 gotas';
+                pheromonesResult.textContent = '0 gotas';
+                alcoholResult.textContent = '0.00 ml';
+                return;
+            } 
+            
+            // Redondear al múltiplo de 10 más cercano
+            selectedVolume = Math.round(selectedVolume / 10) * 10;
+            if (volumeInput.value != selectedVolume) {
+                volumeInput.value = selectedVolume;
+            }
+            
+            errorMessage.textContent = ''; // Limpiar mensaje de error si el input es válido
+
+            const typeConcentration = perfumeData[selectedType] ? perfumeData[selectedType].concentration : 0;
+
+            if (typeConcentration > 0) {
+                const essence = selectedVolume * typeConcentration;
+                const fixativeDrops = selectedVolume / 10; // 1 gota por cada 10ml
+                const pheromonesDrops = selectedVolume / 10; // 1 gota por cada 10ml
+
+                // Calcular el volumen ocupado por fijador y feromonas
+                const fixativeVolume = fixativeDrops * DROP_VOLUME_ML;
+                const pheromonesVolume = pheromonesDrops * DROP_VOLUME_ML;
+
+                let alcohol = selectedVolume - essence - fixativeVolume - pheromonesVolume;
+
+                // Mostrar los resultados
+                essenceResult.textContent = `${essence.toFixed(2)} ml`;
+                fixativeResult.textContent = `${Math.round(fixativeDrops)} gotas`;
+                pheromonesResult.textContent = `${Math.round(pheromonesDrops)} gotas`;
+
+                if (alcohol < 0) {
+                    alcoholResult.textContent = `Volumen insuficiente (${alcohol.toFixed(2)} ml)`;
+                    alcoholResult.style.color = '#e74c3c';
+                    errorMessage.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Advertencia: El volumen total es muy pequeño para esta cantidad de esencia y aditivos.';
+                } else {
+                    alcoholResult.textContent = `${alcohol.toFixed(2)} ml`;
+                    alcoholResult.style.color = '#27ae60';
+                }
+
+            } else {
+                essenceResult.textContent = 'N/A';
+                fixativeResult.textContent = 'N/A';
+                pheromonesResult.textContent = 'N/A';
+                alcoholResult.textContent = 'N/A';
+            }
+        }
+
+        // Event Listeners
+        perfumeTypeSelect.addEventListener('change', calculateQuantities);
+        volumeInput.addEventListener('input', calculateQuantities);
+
+        // Inicializar la calculadora al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            populatePerfumeTypes();
+            calculateQuantities();
+        });
+    </script>
+</body>
+</html>
